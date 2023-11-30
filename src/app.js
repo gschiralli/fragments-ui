@@ -1,5 +1,5 @@
 import { Auth, getUser } from './auth';
-import { getUserFragments } from './api';
+import { getUserFragments, postUserFragment } from './api';
 
 
 async function init() {
@@ -7,6 +7,7 @@ async function init() {
   const userSection = document.querySelector('#user');
   const loginBtn = document.querySelector('#login');
   const logoutBtn = document.querySelector('#logout');
+  const submitBtn = document.querySelector('#submitBtn')
 
   // Wire up event handlers to deal with login and logout.
   loginBtn.onclick = () => {
@@ -26,6 +27,14 @@ async function init() {
     // Disable the Logout button
     logoutBtn.disabled = true;
     return;
+  }
+
+  submitBtn.onclick = async (e) => {
+    e.preventDefault()
+    const selectedType = document.querySelector('#types').value;
+    
+    await postUserFragment(user,selectedType);
+
   }
 
   getUserFragments(user);
